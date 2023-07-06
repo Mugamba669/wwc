@@ -13,7 +13,6 @@ import 'package:wwc/DB/Register.dart';
 import 'package:wwc/Routes/Routes.dart';
 import 'package:wwc/controllers/TemperatureController.dart';
 import 'package:wwc/observer/AppObserver.dart';
-import 'package:wwc/pages/BluetoothOffScreen.dart';
 
 import 'controllers/StepController.dart';
 import 'controllers/HeartRateController.dart';
@@ -64,16 +63,6 @@ void main() async {
                   useMaterial3: true),
               debugShowCheckedModeBanner: false,
               initialRoute:prefs.getString("userId") == null ? Routes.login : Routes.home,
-              // home: StreamBuilder<BluetoothState>(
-              //     stream: FlutterBluePlus.instance.state,
-              //     initialData: BluetoothState.unknown,
-              //     builder: (c, snapshot) {
-              //       final state = snapshot.data;
-              //       if (state == BluetoothState.on) {
-              //         return const FindDevicesScreen();
-              //       }
-              //       return BluetoothOffScreen(state: state);
-              //     }),
               routes: Routes.routes(context),
             );
           }),

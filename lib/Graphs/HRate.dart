@@ -17,10 +17,18 @@ class HRate extends StatefulWidget {
 }
 
 class _HRateState extends State<HRate> {
+  HeartRateController? controller;
   List<double> data = [];
+  @override
   void initState() {
     connectToBtDevice(widget.device);
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    controller?.dispose();
+    super.dispose();
   }
 
   void connectToBtDevice(BluetoothDevice device) async {
@@ -28,12 +36,14 @@ class _HRateState extends State<HRate> {
         Provider.of<HeartRateController>(context, listen: false);
     await esp32Provider.discoverServicesAndCharacteristics(
         device, "c4833904-2076-4b3f-8351-92c5c980e6a7");
+    setState(() {
+      controller = esp32Provider;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-     
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -49,8 +59,9 @@ class _HRateState extends State<HRate> {
               },
             ),
             Padding(
-              padding: const EdgeInsets.only(top:38.0,bottom:18.0),
-              child: Consumer<HeartRateController>(builder: (context, value, x) {
+              padding: const EdgeInsets.only(top: 38.0, bottom: 18.0),
+              child:
+                  Consumer<HeartRateController>(builder: (context, value, x) {
                 return SizedBox(
                   height: MediaQuery.of(context).size.width,
                   width: MediaQuery.of(context).size.width,

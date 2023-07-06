@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:wwc/helpers/helpers.dart';
-import '/pages/BluetoothOffScreen.dart';
 import '/pages/FindDeviceScreen.dart';
 import '/HomePageScreen/widgets/HeartRatePage/HeartRate.dart';
 import '/HomePageScreen/widgets/HeartRatePage/HeartRateDisplayScreen.dart';
@@ -102,18 +101,24 @@ class _DefaultHomePageState extends State<DefaultHomePage> {
                             Navigator.of(context).push(
                               MaterialPageRoute(
                                 builder: (context) {
-                                  if (state == BluetoothState.on) {
+                                  // if (state == BluetoothState.on) {
                                     return const FindDevicesScreen();
-                                  }
-                                  return BluetoothOffScreen(state: state);
+                                  // }
                                 },
                               ),
-                            ).then((value) {
-                              setState(() {
-                                device = value;
-                              });
-                              showMessage(context: context,msg: "Bluetooth connected",type: "success");
-                            });
+                            ).then(
+                              (value) {
+                                setState(
+                                  () {
+                                    device = value;
+                                  },
+                                );
+                                showMessage(
+                                    context: context,
+                                    msg: "Bluetooth connected",
+                                    type: "success");
+                              },
+                            );
                           },
                           child: Container(
                             margin: EdgeInsets.only(right: size.width * 0.04),
@@ -179,26 +184,34 @@ class _DefaultHomePageState extends State<DefaultHomePage> {
                       height: size.height * 0.06,
                     ),
                     InkWell(
-                        onTap: () {
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) {
-                            return const SleepingDisplayScreen();
-                          }));
-                        },
-                        child: const SleepingPattern()),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return const SleepingDisplayScreen();
+                            },
+                          ),
+                        );
+                      },
+                      child: const SleepingPattern(),
+                    ),
                     SizedBox(
                       height: size.height * 0.06,
                     ),
                     InkWell(
-                        onTap: () {
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) {
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) {
                             return WalkingDisplayScreen(
                               device: device!,
                             );
-                          }));
-                        },
-                        child: const WalkingSteadiness())
+                          }),
+                        );
+                      },
+                      child: const WalkingSteadiness(),
+                    )
                   ],
                 )
               ],

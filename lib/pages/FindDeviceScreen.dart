@@ -1,3 +1,5 @@
+// ignore_for_file: unrelated_type_equality_checks
+
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -81,6 +83,11 @@ class FindDevicesScreen extends StatelessWidget {
                         (r) => ScanResultTile(
                           result: r,
                           onTap: () {
+                            if (r.device.state == BluetoothDeviceState.connected) {
+                              Navigator.of(context).pop(r.device);
+                            } else {
+                              // FlutterBluePlus.instance   connect(r.device);
+                            }
                                 Navigator.of(context).pop(r.device);
                           },
                           //  Navigator.of(context).push(

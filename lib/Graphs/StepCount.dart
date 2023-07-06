@@ -15,10 +15,16 @@ class StepCount extends StatefulWidget {
 }
 
 class _StepCountState extends State<StepCount> {
+  StepController? controller;
   @override
   void initState() {
     connectToBtDevice(widget.device);
     super.initState();
+  }
+  @override
+  void dispose() {
+   controller?.dispose();
+    super.dispose();
   }
 
   void connectToBtDevice(BluetoothDevice device) async {
@@ -26,14 +32,14 @@ class _StepCountState extends State<StepCount> {
         Provider.of<StepController>(context, listen: false);
     await esp32Provider.discoverServicesAndCharacteristics(
         device, "beb5483e-36e1-4688-b7f5-ea07361b26a8");
+        setState(() {
+          controller = esp32Provider;
+        });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: const Text("Step Count Graph"),
-      // ),
       body: Consumer<StepController>(builder: (context, step, x) {
         return SfRadialGauge(
           axes: <RadialAxis>[

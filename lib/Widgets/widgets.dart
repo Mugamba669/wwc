@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
 import '../Graphs/HRate.dart';
-import '../Graphs/HeartRate.dart';
 import '../Graphs/StepCount.dart';
 import '../Graphs/Temperature.dart';
 
@@ -186,8 +185,6 @@ class _CharacteristicTileState extends State<CharacteristicTile> {
       "beb5483e-36e1-4688-b7f5-ea07361b26a8";
   static const String characteristicUuidHeart =
       "c4833904-2076-4b3f-8351-92c5c980e6a7";
-  static const String characteristicUuidTemp =
-      "5a24c5c0-41a6-4f66-bfa4-38c050480d92";
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<List<int>>(

@@ -14,17 +14,26 @@ class Temperature extends StatefulWidget {
 }
 
 class _TemperatureState extends State<Temperature> {
+  TemperatureController? controller;
   @override
   void initState() {
     connectToBtDevice(widget.device);
     super.initState();
   }
 
+@override
+  void dispose() {
+    controller?.dispose();
+    super.dispose();
+  }
   void connectToBtDevice(BluetoothDevice device) async {
     TemperatureController esp32Provider =
         Provider.of<TemperatureController>(context, listen: false);
     await esp32Provider.discoverServicesAndCharacteristics(
         device, "5a24c5c0-41a6-4f66-bfa4-38c050480d92");
+        setState(() {
+          controller = esp32Provider;
+        });
   }
 
   @override

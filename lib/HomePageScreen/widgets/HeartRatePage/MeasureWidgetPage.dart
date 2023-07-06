@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:provider/provider.dart';
-import 'package:wwc/Graphs/HeartRate.dart';
+
 import 'package:wwc/controllers/HeartRateController.dart';
 
 import 'GraphDisplayTabViewWidget.dart';
