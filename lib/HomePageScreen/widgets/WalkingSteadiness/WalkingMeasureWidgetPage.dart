@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
 import 'WalkingGraphDisplayTabViewWidget.dart';
 
 class WalkingMeasureWidgetPage extends StatefulWidget {
-  const WalkingMeasureWidgetPage({super.key});
+  final BluetoothDevice device;
+  const WalkingMeasureWidgetPage({super.key, required this.device});
 
   @override
   State<WalkingMeasureWidgetPage> createState() => _WalkingMeasureWidgetPageState();
@@ -26,7 +28,7 @@ class _WalkingMeasureWidgetPageState extends State<WalkingMeasureWidgetPage> {
           ),
           child: Center(child: Text("Statistics", style: TextStyle(fontSize: size.height*0.027),)),
         ),
-        const WalkingGraphDisplayTabViewWidget()
+         WalkingGraphDisplayTabViewWidget(device: widget.device,)
       ],
     );
   }

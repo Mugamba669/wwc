@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
 class MainController extends ChangeNotifier {
+  // BluetoothDevice 
   List<BluetoothService> _currentService = [];
   double _stepValue = 0.0;
   double _heartRateValue = 0.0;

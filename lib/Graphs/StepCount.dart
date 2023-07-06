@@ -65,11 +65,22 @@ class _StepCountState extends State<StepCount> {
                           // Added image widget as an annotation
                           Padding(
                             padding: const EdgeInsets.fromLTRB(0, 2, 0, 0),
-                            child: Text(
-                              '${step.target}',
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 45,
+                            child: RichText(
+                              text: TextSpan(
+                                text: step.target.toInt().toString(),
+                                children: const [
+                                  TextSpan(
+                                    text: " Steps",
+                                    style: TextStyle(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black),
+                                  ),
+                                ],
+                                style: const TextStyle(
+                                    fontSize: 25,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black)
                               ),
                             ),
                           ),

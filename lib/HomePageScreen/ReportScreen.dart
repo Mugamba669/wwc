@@ -9,7 +9,7 @@ class ReportScreen extends StatefulWidget {
 class _ReportScreenState extends State<ReportScreen> {
   @override
   Widget build(BuildContext context) {
-       return Column(
+       return const Column(
       children: [
         Center(child: Text("report page"),)
       ],

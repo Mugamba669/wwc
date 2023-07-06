@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
 import '../../HomeScreen.dart';
 import 'WalkingTabViewWidget.dart';
  
 
 class WalkingDisplayScreen extends StatefulWidget {
-  const WalkingDisplayScreen({super.key});
+  final BluetoothDevice device;
+  const WalkingDisplayScreen({super.key, required this.device});
 
   @override
   State<WalkingDisplayScreen> createState() => _WalkingDisplayScreenState();
@@ -22,14 +24,7 @@ class _WalkingDisplayScreenState extends State<WalkingDisplayScreen> {
       appBar: AppBar(
         title: const Text("Walking Steadiness"),
       ),
-      body: const SingleChildScrollView(
-         scrollDirection: Axis.vertical,
-        child: Column(
-          children: [
-            WalkingTabViewWidget(),
-          ],
-        ),
-      ),
+      body:  WalkingTabViewWidget(device: widget.device,),
       //    bottomNavigationBar: BottomNavigationBar(
         
       //   currentIndex: _selectedIndex,
