@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
 import 'TemperatureAdvisoryWidgetPage.dart';
 import 'TemperatureMeasureWidgetPage.dart';
 
 
 class TemperatureDisplayScreenTabViewWidget extends StatefulWidget {
-  const TemperatureDisplayScreenTabViewWidget({Key? key});
+  final BluetoothDevice device;
+  const TemperatureDisplayScreenTabViewWidget({Key? key, required this.device});
 
   @override
   State<TemperatureDisplayScreenTabViewWidget> createState() =>
@@ -51,9 +53,9 @@ class _TemperatureDisplayScreenTabViewWidgetState
                       ),
                   child: TabBarView(
                     controller: tabController,
-                    children: const [
-                      TemperatureMeasureWidgetPage(),
-                      TemperatureAdvisoryWidgetPage()
+                    children:  [
+                      TemperatureMeasureWidgetPage(device:widget.device),
+                      const TemperatureAdvisoryWidgetPage()
                     ],
                   ),
                 ),

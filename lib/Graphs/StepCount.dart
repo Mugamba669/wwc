@@ -31,9 +31,9 @@ class _StepCountState extends State<StepCount> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Step Count Graph"),
-      ),
+      // appBar: AppBar(
+      //   title: const Text("Step Count Graph"),
+      // ),
       body: Consumer<StepController>(builder: (context, step, x) {
         return SfRadialGauge(
           axes: <RadialAxis>[
@@ -73,12 +73,12 @@ class _StepCountState extends State<StepCount> {
                                     text: " Steps",
                                     style: TextStyle(
                                         fontSize: 15,
-                                        fontWeight: FontWeight.bold,
+                                        fontWeight: FontWeight.w300,
                                         color: Colors.black),
                                   ),
                                 ],
                                 style: const TextStyle(
-                                    fontSize: 25,
+                                    fontSize: 35,
                                     fontWeight: FontWeight.bold,
                                     color: Colors.black)
                               ),

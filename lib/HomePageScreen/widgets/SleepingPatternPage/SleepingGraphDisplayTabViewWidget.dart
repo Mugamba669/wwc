@@ -10,7 +10,7 @@ class SleepingGraphDisplayTabViewWidget extends StatefulWidget {
 class _SleepingGraphDisplayTabViewWidgetState extends State<SleepingGraphDisplayTabViewWidget> with TickerProviderStateMixin{
   @override
  Widget build(BuildContext context) {
-      TabController _tab2Controller = TabController(length: 2, vsync: this);
+      TabController tab2Controller = TabController(length: 2, vsync: this);
       final size =MediaQuery.of(context).size;
     return  SingleChildScrollView(
         scrollDirection: Axis.vertical,
@@ -22,7 +22,7 @@ class _SleepingGraphDisplayTabViewWidgetState extends State<SleepingGraphDisplay
               Container(
                 color: Color.fromARGB(255, 105, 205, 255),
                   child: TabBar(
-                    controller: _tab2Controller,
+                    controller: tab2Controller,
                     labelColor: Colors.black54,
                     unselectedLabelColor: Colors.black26,
                     indicatorSize: TabBarIndicatorSize.label,
@@ -41,7 +41,7 @@ class _SleepingGraphDisplayTabViewWidgetState extends State<SleepingGraphDisplay
                       // color: Color.fromARGB(171, 214, 211, 211),
                       ),
                   child: TabBarView(
-                    controller: _tab2Controller,
+                    controller: tab2Controller,
                     children: const [
                       Center(child: Text("This will display sleeping patterns for the day graph")),
                        Center(child: Text("This will display sleeping patterns for the display week graph")),

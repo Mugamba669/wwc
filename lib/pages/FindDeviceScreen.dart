@@ -3,8 +3,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
-import '../HomePageScreen/DefaultHomePage.dart';
-import '../Widgets/widgets.dart';
+import '/HomePageScreen/DefaultHomePage.dart';
+import '/Widgets/widgets.dart';
 import 'DeviceScreen.dart';
 
 class FindDevicesScreen extends StatelessWidget {
@@ -52,15 +52,16 @@ class FindDevicesScreen extends StatelessWidget {
                                   return ElevatedButton(
                                     child: const Text('OPEN'),
                                     onPressed: () {
-                                      Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                DefaultHomePage(
-                                                  device: d,
-                                                )
+                                      Navigator.of(context).pop(d);
+                                      // Navigator.of(context).push(
+                                      //   MaterialPageRoute(
+                                      //       builder: (context) =>
+                                      //           DefaultHomePage(
+                                      //             device: d,
+                                      //           )
                                             // DeviceScreen(device: d),
-                                            ),
-                                      );
+                                      //       ),
+                                      // );
                                     },
                                   );
                                 }
@@ -79,13 +80,19 @@ class FindDevicesScreen extends StatelessWidget {
                       .map(
                         (r) => ScanResultTile(
                           result: r,
-                          onTap: () => Navigator.of(context)
-                              .push(MaterialPageRoute(builder: (context) {
-                            r.device.connect();
-                            return DefaultHomePage(
-                              device: r.device,
-                            ); //DeviceScreen(device: r.device);
-                          })),
+                          onTap: () {
+                                Navigator.of(context).pop(r.device);
+                          },
+                          //  Navigator.of(context).push(
+                          //   MaterialPageRoute(
+                          //     builder: (context) {
+                          //       r.device.connect();
+                          //       return DefaultHomePage(
+                          //         device: r.device,
+                          //       ); //DeviceScreen(device: r.device);
+                          //     },
+                          //   ),
+                          // ),
                         ),
                       )
                       .toList(),

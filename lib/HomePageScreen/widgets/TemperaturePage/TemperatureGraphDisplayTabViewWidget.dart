@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+import 'package:wwc/Graphs/Temperature.dart';
 
 class TemperatureGraphDisplayTabViewWidget extends StatefulWidget {
-  const TemperatureGraphDisplayTabViewWidget({super.key});
+  final BluetoothDevice device;
+  const TemperatureGraphDisplayTabViewWidget({super.key, required this.device});
 
   @override
   State<TemperatureGraphDisplayTabViewWidget> createState() => _TemperatureGraphDisplayTabViewWidgetState();
@@ -35,16 +38,16 @@ class _TemperatureGraphDisplayTabViewWidgetState extends State<TemperatureGraphD
                 Container(
                   margin:
                       const EdgeInsets.only(left: 10, bottom: 25, right: 20, top: 10),
-                  height: size.height*0.32,
+                  height: size.width,
                   width: double.maxFinite,
                   decoration: const BoxDecoration(
                       // color: Color.fromARGB(171, 214, 211, 211),
                       ),
                   child: TabBarView(
                     controller: tab2Controller,
-                    children: const [
-                      Center(child: Text("This will display temperature for the day graph")),
-                       Center(child: Text("This will display temperature for the display week graph")),
+                    children:  [
+                      Temperature(device: widget.device),
+                       const Center(child: Text("This will display temperature for the display week graph")),
                     ],
                   ),
                 ),

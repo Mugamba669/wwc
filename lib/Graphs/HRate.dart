@@ -33,10 +33,8 @@ class _HRateState extends State<HRate> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Heart Rate'),
-      ),
-      body: Center(
+     
+      body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -51,7 +49,7 @@ class _HRateState extends State<HRate> {
               },
             ),
             Padding(
-              padding: const EdgeInsets.only(top:38.0,bottom:38.0),
+              padding: const EdgeInsets.only(top:38.0,bottom:18.0),
               child: Consumer<HeartRateController>(builder: (context, value, x) {
                 return SizedBox(
                   height: MediaQuery.of(context).size.width,

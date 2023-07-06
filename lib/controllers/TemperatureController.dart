@@ -16,23 +16,25 @@ class TemperatureController with ChangeNotifier {
     List<BluetoothService> services = await espDevice!.discoverServices();
 
     Timer.periodic(const Duration(milliseconds: 200), (timer) {
-      try {
         services.forEach((service) {
           if (service.uuid.toString() ==
               "4fafc201-1fb5-459e-8fcc-c5c9c331914b") {
             service.characteristics.forEach((characteristic) {
               if (characteristic.uuid.toString() == uid) {
-                characteristic.read().then((value) {
-                  temperature = double.parse(String.fromCharCodes(value));
-                });
+                if (characteristic.properties.read) {
+                  characteristic.read();
+                  characteristic.value.listen((value) {
+                    if (value.isNotEmpty) {
+                      temperature = double.parse(String.fromCharCodes(value));
+                    }
+                  });
+                }
                 notifyListeners();
               }
             });
           }
         });
-      } on PlatformException catch (e, _) {
-        debugPrint(e.toString());
-      }
+      
     });
   }
 }

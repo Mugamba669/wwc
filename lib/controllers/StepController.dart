@@ -11,34 +11,34 @@ class StepController with ChangeNotifier {
   BluetoothCharacteristic? targetCharacteristic;
   bool connected = false;
   double target = 0;
-
+  bool isReading = false;
   Future<void> discoverServicesAndCharacteristics(
       BluetoothDevice espDevice, String uid) async {
     List<BluetoothService> services = await espDevice.discoverServices();
-  
+
     Timer.periodic(const Duration(milliseconds: 200), (timer) {
-      try{
       for (var service in services) {
         if (service.uuid.toString() == "4fafc201-1fb5-459e-8fcc-c5c9c331914b") {
           for (var characteristic in service.characteristics) {
             if (characteristic.uuid.toString() == uid) {
-              characteristic.read().then((value) {
-                if (kDebugMode) {
-                  print(
-                  "Steps ${String.fromCharCodes(value)}",
-                );
-                }
-                target = double.parse(
-                  String.fromCharCodes(value),
-                );
-              });
+              if (characteristic.properties.read) {
+                // characteristic.read();
+                characteristic.value.listen((value) {
+                  if (value.isNotEmpty) {
+                    try {
+                      target = double.parse(String.fromCharCodes(value));
+                    } catch (e) {
+                      debugPrint(e.toString());
+                    }
+                  }
+                });
+                isReading = false;
+              }
+
               notifyListeners();
             }
           }
         }
-      }
-       } on PlatformException catch(e,_){
-        debugPrint(e.toString());
       }
     });
   }

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import '/HomePageScreen/widgets/HeartRatePage/AdvisoryWidgetPage.dart';
 import '/HomePageScreen/widgets/HeartRatePage/MeasureWidgetPage.dart';
 
 
 class HeartRateDisplayScreenTabViewWidget extends StatefulWidget {
-  const HeartRateDisplayScreenTabViewWidget({Key? key});
+  final BluetoothDevice device;
+  const HeartRateDisplayScreenTabViewWidget({super.key,  required this.device});
 
   @override
   State<HeartRateDisplayScreenTabViewWidget> createState() =>
@@ -43,16 +45,16 @@ class _HeartRateDisplayScreenTabViewWidgetState
                 Container(
                   margin:
                       const EdgeInsets.only(left: 20, bottom: 20, right: 20, top: 10),
-                  height: size.height*0.65,
+                  height: size.height,
                   width: double.maxFinite,
                   decoration: const BoxDecoration(
                       // color: Color.fromARGB(171, 214, 211, 211),
                       ),
                   child: TabBarView(
                     controller: tabController,
-                    children: const [
-                      MeasureWidgetPage(),
-                      AdvisoryWidgetPage()
+                    children:  [
+                      MeasureWidgetPage(device: widget.device,),
+                      const AdvisoryWidgetPage()
                     ],
                   ),
                 ),

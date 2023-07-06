@@ -30,16 +30,17 @@ class _TemperatureState extends State<Temperature> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Temperature Data'),
-      ),
-      body: Center(
+      // appBar: AppBar(
+      //   title: const Text('Temperature Data'),
+      // ),
+      body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Consumer<TemperatureController>(
               builder: (context, value, _) {
                 return SfRadialGauge(
+                  title: const GaugeTitle(text: "Temp"),
                   axes: <RadialAxis>[
                     RadialAxis(minimum: 0, maximum: 150, ranges: <GaugeRange>[
                       GaugeRange(

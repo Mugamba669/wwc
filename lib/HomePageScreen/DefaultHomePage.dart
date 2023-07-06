@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+import 'package:wwc/helpers/helpers.dart';
 import '/pages/BluetoothOffScreen.dart';
 import '/pages/FindDeviceScreen.dart';
 import '/HomePageScreen/widgets/HeartRatePage/HeartRate.dart';
@@ -20,27 +21,34 @@ class DefaultHomePage extends StatefulWidget {
 }
 
 class _DefaultHomePageState extends State<DefaultHomePage> {
+  BluetoothDevice? device;
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: Text("Connected to :${widget.device?.name}",style: TextStyle(fontSize: 16,color: Colors.white),),
-        backgroundColor: Colors.blue,
-         actions: <Widget>[
+        title: Text(
+          "Connected to :${device?.name}",
+          style: const TextStyle(
+            fontSize: 16,
+            color: Colors.white,
+          ),
+        ),
+        backgroundColor: Theme.of(context).primaryColor,
+        actions: <Widget>[
           StreamBuilder<BluetoothDeviceState>(
-            stream: widget.device?.state,
+            stream: device?.state,
             initialData: BluetoothDeviceState.connecting,
             builder: (c, snapshot) {
               VoidCallback? onPressed;
               String text;
               switch (snapshot.data) {
                 case BluetoothDeviceState.connected:
-                  onPressed = () => widget.device?.disconnect();
+                  onPressed = () => device?.disconnect();
                   text = 'DISCONNECT';
                   break;
                 case BluetoothDeviceState.disconnected:
-                  onPressed = () => widget.device?.connect();
+                  onPressed = () => device?.connect();
                   text = 'CONNECT';
                   break;
                 default:
@@ -91,15 +99,21 @@ class _DefaultHomePageState extends State<DefaultHomePage> {
                         ),
                         InkWell(
                           onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) {
-                                if (state == BluetoothState.on) {
-                                  return const FindDevicesScreen();
-                                }
-                                return BluetoothOffScreen(state: state);
-                              }),
-                            );
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  if (state == BluetoothState.on) {
+                                    return const FindDevicesScreen();
+                                  }
+                                  return BluetoothOffScreen(state: state);
+                                },
+                              ),
+                            ).then((value) {
+                              setState(() {
+                                device = value;
+                              });
+                              showMessage(context: context,msg: "Bluetooth connected",type: "success");
+                            });
                           },
                           child: Container(
                             margin: EdgeInsets.only(right: size.width * 0.04),
@@ -133,23 +147,34 @@ class _DefaultHomePageState extends State<DefaultHomePage> {
                     ),
                     InkWell(
                         onTap: () {
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) {
-                            return const HeartRateDisplayScreen();
-                          }));
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return HeartRateDisplayScreen(device: device!);
+                              },
+                            ),
+                          );
                         },
                         child: const HeartRate()),
                     SizedBox(
                       height: size.height * 0.06,
                     ),
                     InkWell(
-                        onTap: () {
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) {
-                            return const TemperatureDisplayScreen();
-                          }));
-                        },
-                        child: const Temperature()),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return TemperatureDisplayScreen(
+                                device: device!,
+                              );
+                            },
+                          ),
+                        );
+                      },
+                      child: const Temperature(),
+                    ),
                     SizedBox(
                       height: size.height * 0.06,
                     ),
@@ -168,7 +193,9 @@ class _DefaultHomePageState extends State<DefaultHomePage> {
                         onTap: () {
                           Navigator.push(context,
                               MaterialPageRoute(builder: (context) {
-                            return  WalkingDisplayScreen(device: widget.device!,);
+                            return WalkingDisplayScreen(
+                              device: device!,
+                            );
                           }));
                         },
                         child: const WalkingSteadiness())
