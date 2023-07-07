@@ -15,7 +15,7 @@ class _GraphDisplayTabViewWidgetState extends State<GraphDisplayTabViewWidget>
     with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
-    TabController tab2Controller = TabController(length: 2, vsync: this);
+    TabController tab2Controller = TabController(length: 1, vsync: this);
     final size = MediaQuery.of(context).size;
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
@@ -33,14 +33,14 @@ class _GraphDisplayTabViewWidgetState extends State<GraphDisplayTabViewWidget>
               indicatorSize: TabBarIndicatorSize.label,
               tabs: const [
                 Tab(text: "Day"),
-                Tab(text: "Week"),
+                
               ],
             ),
           ),
           Container(
             margin:
-                const EdgeInsets.only(left: 10, bottom: 0, right: 20, top: 10),
-            height: size.width,
+                const EdgeInsets.only(left: 10, bottom: 0, right: 20, top: 0),
+            height: size.width ,
             decoration: const BoxDecoration(
                 // color: Color.fromARGB(171, 214, 211, 211),
                 ),
@@ -48,9 +48,7 @@ class _GraphDisplayTabViewWidgetState extends State<GraphDisplayTabViewWidget>
               controller: tab2Controller,
               children: [
                 HRate(device: widget.device),
-                const Center(
-                  child: Text("This will display display week graph"),
-                ),
+                
               ],
             ),
           ),

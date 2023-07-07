@@ -13,7 +13,7 @@ class TemperatureGraphDisplayTabViewWidget extends StatefulWidget {
 class _TemperatureGraphDisplayTabViewWidgetState extends State<TemperatureGraphDisplayTabViewWidget> with TickerProviderStateMixin{
   @override
  Widget build(BuildContext context) {
-      TabController tab2Controller = TabController(length: 2, vsync: this);
+      TabController tab2Controller = TabController(length: 1, vsync: this);
       final size =MediaQuery.of(context).size;
     return  SingleChildScrollView(
         scrollDirection: Axis.vertical,
@@ -31,7 +31,7 @@ class _TemperatureGraphDisplayTabViewWidgetState extends State<TemperatureGraphD
                     indicatorSize: TabBarIndicatorSize.label,
                     tabs: const [
                       Tab(text: "Day"),
-                      Tab(text: "Week"),
+                      
                     ],
                   ),
                 ),
@@ -47,12 +47,9 @@ class _TemperatureGraphDisplayTabViewWidgetState extends State<TemperatureGraphD
                     controller: tab2Controller,
                     children:  [
                       Temperature(device: widget.device),
-                       const Center(child: Text("This will display temperature for the display week graph")),
                     ],
                   ),
                 ),
-                
-          
         ],
          ),
       );

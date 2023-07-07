@@ -1,8 +1,12 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 
+import '../DB/TemperatureDb.dart';
 import '../controllers/TemperatureController.dart';
 
 class Temperature extends StatefulWidget {
@@ -48,6 +52,15 @@ class _TemperatureState extends State<Temperature> {
           children: <Widget>[
             Consumer<TemperatureController>(
               builder: (context, value, _) {
+                Timer.periodic(const Duration(milliseconds: 600), (timer) {
+                  Hive.box<TemperatureDb>("wwc").add(
+                    TemperatureDb(
+                      date: DateTime.now().toString(),
+                      temperature: value.temperature,
+                      uid: widget.device.id.toString(),
+                    )
+                  );
+                });
                 return SfRadialGauge(
                   title: const GaugeTitle(text: "Temp"),
                   axes: <RadialAxis>[

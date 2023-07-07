@@ -22,7 +22,7 @@ class _WalkingMeasureWidgetPageState extends State<WalkingMeasureWidgetPage> {
         return Column(
           children: [
             SizedBox(height: size.height*0.025,),
-            Text("Walking steadiness: ${steps.target}", style: TextStyle(fontSize: size.height*0.035),),
+            Text("Steps: ${steps.target}", style: TextStyle(fontSize: size.height*0.035),),
               SizedBox(height: size.height*0.036,),
             Container(
               height: size.height*0.06,

@@ -1,9 +1,13 @@
 // ignore_for_file: prefer_is_empty
 
+import 'dart:async';
+
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:wwc/DB/HeartRateDb.dart';
 import 'package:wwc/controllers/HeartRateController.dart';
 
 import '../controllers/StepController.dart';
@@ -51,6 +55,15 @@ class _HRateState extends State<HRate> {
             Consumer<HeartRateController>(
               builder: (context, value, _) {
                 data.add(value.heartRate);
+                Timer.periodic(const Duration(milliseconds: 600), (timer) {
+                   Hive.box<HeartRateDb>("wwc").add(
+                     HeartRateDb(
+                       uid: widget.device.id.toString(),
+                       date: DateTime.now().toString(),
+                       heartRate: value.heartRate
+                     )
+                   );
+                });
                 return Text(
                   'Heart Rate: ${value.heartRate.toString()} bpm',
                   style: const TextStyle(

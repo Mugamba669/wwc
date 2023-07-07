@@ -5,29 +5,25 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wwc/DB/Register.dart';
 import 'package:wwc/Routes/Routes.dart';
 import 'package:wwc/controllers/TemperatureController.dart';
-import 'package:wwc/observer/AppObserver.dart';
 
 import 'controllers/StepController.dart';
 import 'controllers/HeartRateController.dart';
 import 'controllers/MainController.dart';
-import 'pages/FindDeviceScreen.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hive/hive.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
-  // Hive.registerAdapter<Contact>(ContactAdapter());
   Hive.registerAdapter<Register>(RegisterAdapter());
   await Hive.openBox<Register>("wwc");
-  AppObserver bloc = const AppObserver();
+
   SharedPreferences prefs = await SharedPreferences.getInstance();
   if (Platform.isAndroid) {
     WidgetsFlutterBinding.ensureInitialized();

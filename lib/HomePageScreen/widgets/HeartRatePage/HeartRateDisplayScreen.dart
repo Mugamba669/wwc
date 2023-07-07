@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
-
 import '../../HomeScreen.dart';
 import 'HeartRateDisplayScreenTabViewWidget.dart';
 
@@ -14,20 +13,20 @@ class HeartRateDisplayScreen extends StatefulWidget {
 }
 
 class _HeartRateDisplayScreenState extends State<HeartRateDisplayScreen> {
-
   void onItemTapped(int index) {
-    setState(() {
-    });
+    setState(() {});
   }
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         // leading: Icon(Icons.heart_broken),
         title: const Text("Heart Rate"),
       ),
-      body:  SingleChildScrollView(
-         scrollDirection: Axis.vertical,
-        child:  HeartRateDisplayScreenTabViewWidget(device: widget.device,)
+      body: SingleChildScrollView(
+        child: HeartRateDisplayScreenTabViewWidget(
+          device: widget.device,
+        ),
       ),
     );
   }

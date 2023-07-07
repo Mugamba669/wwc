@@ -16,7 +16,7 @@ class _WalkingGraphDisplayTabViewWidgetState
     with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
-    TabController tab2Controller = TabController(length: 2, vsync: this);
+    TabController tab2Controller = TabController(length: 1, vsync: this);
     final size = MediaQuery.of(context).size;
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
@@ -34,7 +34,6 @@ class _WalkingGraphDisplayTabViewWidgetState
               indicatorSize: TabBarIndicatorSize.label,
               tabs: const [
                 Tab(text: "Day"),
-                Tab(text: "Week"),
               ],
             ),
           ),
@@ -50,12 +49,6 @@ class _WalkingGraphDisplayTabViewWidgetState
               controller: tab2Controller,
               children:  [
                 StepCount(device: widget.device),
-                // Center(
-                //     child: Text(
-                //         "This will display walking patterns for the day graph")),
-                const Center(
-                    child: Text(
-                        "This will display walking patterns for the display week graph")),
               ],
             ),
           ),

@@ -1,3 +1,5 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
@@ -102,4 +104,18 @@ Future<DateTime?> showDate(BuildContext context) async {
     lastDate: DateTime(2060),
   );
   return date;
+}
+
+
+
+// function to return advisory messages based on temperature
+String getTemperatureAdvisory(double temperature) {
+  if (temperature < 36.1) {
+    return "Your body temperature is below the normal body temperature range. You may be experiencing hypothermia. Please consult a healthcare professional.";
+  } else if (temperature >= 36.1 && temperature <= 37.2) {
+    return "Your body temperature is within the normal range.";
+     
+  } else {
+    return "It's above the normal body temperature range. You may have a fever. Monitor your symptoms and seek medical advice if necessary.";
+  }
 }
