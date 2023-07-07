@@ -46,8 +46,8 @@ class _StepCountState extends State<StepCount> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Consumer<StepController>(builder: (context, step, x) {
-          Timer.periodic(const Duration(milliseconds: 600), (timer) {
-            Box<StepsDb> box = Hive.box<StepsDb>("wwc");
+          Timer.periodic(const Duration(seconds: 1), (timer) {
+            Box<StepsDb> box = Hive.box<StepsDb>("step");
             box.add(
               StepsDb(
                 date: DateTime.now().toString(),

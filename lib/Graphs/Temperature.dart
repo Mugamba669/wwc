@@ -52,8 +52,8 @@ class _TemperatureState extends State<Temperature> {
           children: <Widget>[
             Consumer<TemperatureController>(
               builder: (context, value, _) {
-                Timer.periodic(const Duration(milliseconds: 600), (timer) {
-                  Hive.box<TemperatureDb>("wwc").add(
+                Timer.periodic(const Duration(seconds: 1), (timer) {
+                  Hive.box<TemperatureDb>("temperature").add(
                     TemperatureDb(
                       date: DateTime.now().toString(),
                       temperature: value.temperature,

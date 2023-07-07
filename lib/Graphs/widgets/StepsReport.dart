@@ -1,9 +1,12 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:wwc/DB/HeartRateDb.dart';
+import 'package:wwc/DB/StepsDb.dart';
+
+import '../../helpers/helpers.dart';
 
 class StepsReport extends StatefulWidget {
-  final List<HeartRateDb> steps;
+  final List<StepsDb> steps;
 
   const StepsReport({super.key, required this.steps});
 
@@ -23,32 +26,42 @@ class _StepsReportState extends State<StepsReport> {
           minY: 0,
           maxY: 200,
           titlesData: FlTitlesData(
-            show: true,
-            bottomTitles: AxisTitles(
-              sideTitles: SideTitles(
-                showTitles: true,
-                getTitlesWidget: (value, x) {
-                  return Text(widget.steps[value.toInt()].toString());
-                },
+              show: true,
+              bottomTitles: AxisTitles(
+                sideTitles: SideTitles(
+                  showTitles: true,
+                  getTitlesWidget: (value, x) {
+                    return Transform.translate(
+                      offset: const Offset(-25,50),
+                      child: Transform.rotate(
+                        angle: -45,
+                        child: Text(
+                          formatDateTime(
+                            DateTime.parse(
+                              widget.steps[value.toInt()].date.toString(),
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
               ),
-            ),
-            topTitles: const AxisTitles(
-              sideTitles: SideTitles(
+              topTitles: const AxisTitles(
+                  sideTitles: SideTitles(
                 showTitles: false,
-              )
-            ),
-            leftTitles: const AxisTitles(
-              sideTitles: SideTitles(
+              )),
+              leftTitles: const AxisTitles(
+                  sideTitles: SideTitles(
                 showTitles: false,
-              )
-            )
-          ),
+              ))),
           lineBarsData: [
             LineChartBarData(
               spots: widget.steps
                   .asMap()
                   .entries
-                  .map((entry) => FlSpot(entry.key.toDouble(), entry.value.heartRate!.toDouble()))
+                  .map((entry) => FlSpot(
+                      entry.key.toDouble(), entry.value.steps!.toDouble()))
                   .toList(),
               isCurved: true,
               color: Colors.blue,

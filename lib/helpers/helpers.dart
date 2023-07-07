@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-
+import 'package:intl/intl.dart';
 showAlertMsg(BuildContext context, {String content = "", String title = ""}) {
   showDialog(
       context: context,
@@ -118,4 +118,19 @@ String getTemperatureAdvisory(double temperature) {
   } else {
     return "It's above the normal body temperature range. You may have a fever. Monitor your symptoms and seek medical advice if necessary.";
   }
+}
+
+// function to handle date
+String formatDateTime(DateTime date) {
+  return DateFormat('dd-MM-yyyy hh:mm a').format(date);
+}
+
+int computeHoursSpent(TimeOfDay startTime, TimeOfDay endTime) {
+  final startMinutes = startTime.hour * 60 + startTime.minute;
+  final endMinutes = endTime.hour * 60 + endTime.minute;
+
+  final minutesSpent = endMinutes - startMinutes;
+  final hoursSpent = minutesSpent ~/ 60;
+
+  return hoursSpent;
 }

@@ -1,19 +1,20 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:wwc/DB/HoursDb.dart';
 import 'package:wwc/DB/TemperatureDb.dart';
 
 import '../../helpers/helpers.dart';
 
-class TemperatureReport extends StatefulWidget {
-  final List<TemperatureDb> temperature;
+class HoursReport extends StatefulWidget {
+  final List<HoursDb> time;
 
-  const TemperatureReport({super.key, required this.temperature});
+  const HoursReport({super.key, required this.time});
 
   @override
-  State<TemperatureReport> createState() => _TemperatureReportState();
+  State<HoursReport> createState() => _HoursReportState();
 }
 
-class _TemperatureReportState extends State<TemperatureReport> {
+class _HoursReportState extends State<HoursReport> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -21,7 +22,7 @@ class _TemperatureReportState extends State<TemperatureReport> {
       child: LineChart(
         LineChartData(
           minX: 0,
-          maxX: widget.temperature.length.toDouble() - 1,
+          maxX: widget.time.length.toDouble() - 1,
           minY: 0,
           maxY: 200,
           titlesData: FlTitlesData(
@@ -35,7 +36,7 @@ class _TemperatureReportState extends State<TemperatureReport> {
                       child: Transform.rotate(
                         angle: -45,
                         child: Text(
-                          formatDateTime(DateTime.parse(widget.temperature[value.toInt()].date.toString())),
+                          formatDateTime(DateTime.parse(widget.time[value.toInt()].date.toString())),
                         ),
                       ),
                     );
@@ -52,13 +53,13 @@ class _TemperatureReportState extends State<TemperatureReport> {
               ))),
           lineBarsData: [
             LineChartBarData(
-              spots: widget.temperature
+              spots: widget.time
                   .asMap()
                   .entries
                   .map(
                     (entry) => FlSpot(
                       entry.key.toDouble(),
-                      entry.value.temperature!.toDouble(),
+                      entry.value.hours!.toDouble(),
                     ),
                   )
                   .toList(),

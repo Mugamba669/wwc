@@ -55,8 +55,8 @@ class _HRateState extends State<HRate> {
             Consumer<HeartRateController>(
               builder: (context, value, _) {
                 data.add(value.heartRate);
-                Timer.periodic(const Duration(milliseconds: 600), (timer) {
-                   Hive.box<HeartRateDb>("wwc").add(
+                Timer.periodic(const Duration(seconds: 1), (timer) {
+                   Hive.box<HeartRateDb>("heart").add(
                      HeartRateDb(
                        uid: widget.device.id.toString(),
                        date: DateTime.now().toString(),

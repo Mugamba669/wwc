@@ -23,14 +23,14 @@ class _SleepingPatternState extends State<SleepingPattern> {
         color: Colors.grey.withOpacity(0.5),
         spreadRadius: 2,
         blurRadius: 5,
-        offset: Offset(0, 3),
+        offset: const Offset(0, 3),
       ),
     ],
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-Icon(Icons.bed, color: Colors.white,),
+const Icon(Icons.bed, color: Colors.white,),
 Text("SLEEPING PATTERN", style: TextStyle(color: Colors.white, fontSize: size.height*0.03),)
                 ],
               ),
