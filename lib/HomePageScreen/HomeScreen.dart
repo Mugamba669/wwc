@@ -11,7 +11,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  @override
   int _selectedIndex = 0;
   List Page = [
     const DefaultHomePage(),
@@ -26,7 +25,6 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     return Scaffold(
       // drawer: AppDrawerScreen(),
       appBar: AppBar(

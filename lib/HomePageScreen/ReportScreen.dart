@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:wwc/DB/HeartRateDb.dart';
+import 'package:wwc/DB/HoursDb.dart';
 import 'package:wwc/DB/StepsDb.dart';
 import 'package:wwc/DB/TemperatureDb.dart';
 import 'package:wwc/Graphs/widgets/StepsReport.dart';
 import 'package:wwc/Graphs/widgets/TemperatureReport.dart';
+import '../Graphs/widgets/HoursSlept.dart';
 import '/Graphs/widgets/HeartRateReport.dart';
 
 class ReportScreen extends StatefulWidget {
@@ -15,7 +17,7 @@ class ReportScreen extends StatefulWidget {
 }
 
 class _ReportScreenState extends State<ReportScreen> {
-  // final List<double> heartRates = [100, 120, 130, 110, 140, 120, 150, 160, 130];
+ 
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -128,11 +130,11 @@ class _ReportScreenState extends State<ReportScreen> {
                   ? const Center(
                       child: Text("No hours slept data"),
                     )
-                  : StepsReport(
-                      steps: box.values.toList(),
+                  : HoursReport(
+                      time: box.values.toList(),
                     );
             },
-            valueListenable: Hive.box<StepsDb>("step").listenable(),
+            valueListenable: Hive.box<HoursDb>("hours").listenable(),
           ),
         ),
         SizedBox(

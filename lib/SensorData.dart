@@ -1,3 +1,4 @@
+// ignore_for_file: deprecated_member_use
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -11,13 +12,13 @@ const String characteristicUuidTemp = "5a24c5c0-41a6-4f66-bfa4-38c050480d92";
 
 class SensorData extends StatefulWidget {
   final List<BluetoothService> services;
-const SensorData({Key? key, required this.services}) : super(key: key);
+  const SensorData({Key? key, required this.services}) : super(key: key);
   @override
   _SensorDataState createState() => _SensorDataState();
 }
 
 class _SensorDataState extends State<SensorData> {
-  FlutterBluePlus flutterBlue = FlutterBluePlus.instance;
+  FlutterBluePlus flutterBlue = FlutterBluePlus();
   BluetoothDevice? espDevice;
   BluetoothCharacteristic? stepCharacteristic;
   BluetoothCharacteristic? heartCharacteristic;
@@ -29,8 +30,6 @@ class _SensorDataState extends State<SensorData> {
     super.initState();
     // startScan();
   }
-
- 
 
   void discoverTServices() async {
     // List<BluetoothService> services = await widget.services.discoverServices();
@@ -45,8 +44,7 @@ class _SensorDataState extends State<SensorData> {
               characteristicUuidHeart) {
             heartCharacteristic = characteristic;
             subscribeToCharacteristic(characteristic);
-          } else if (characteristic.uuid.toString() ==
-              characteristicUuidTemp) {
+          } else if (characteristic.uuid.toString() == characteristicUuidTemp) {
             tempCharacteristic = characteristic;
             subscribeToCharacteristic(characteristic);
           }
@@ -68,14 +66,13 @@ class _SensorDataState extends State<SensorData> {
   @override
   Widget build(BuildContext context) {
     discoverTServices();
-    return  Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'Connected: $connected',
-            ),
-          ],
-      
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Text(
+          'Connected: $connected',
+        ),
+      ],
     );
   }
 }

@@ -1,14 +1,14 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:wwc/DB/HoursDb.dart';
-import 'package:wwc/DB/TemperatureDb.dart';
 
 import '../../helpers/helpers.dart';
 
 class HoursReport extends StatefulWidget {
+  final double? height;
   final List<HoursDb> time;
 
-  const HoursReport({super.key, required this.time});
+  const HoursReport({super.key, required this.time, this.height = 300});
 
   @override
   State<HoursReport> createState() => _HoursReportState();
@@ -18,7 +18,8 @@ class _HoursReportState extends State<HoursReport> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 300,
+      height:widget.height,
+      width: MediaQuery.of(context).size.width,
       child: LineChart(
         LineChartData(
           minX: 0,

@@ -1,4 +1,3 @@
-
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -26,7 +25,8 @@ class _DeviceScreenState extends State<DeviceScreen> {
     ];
   }
 
-  List<Widget> _buildServiceTiles(List<BluetoothService> services,BluetoothDevice btDevice) {
+  List<Widget> _buildServiceTiles(
+      List<BluetoothService> services, BluetoothDevice btDevice) {
     return services
         .where((element) =>
             element.uuid.toString() == "4fafc201-1fb5-459e-8fcc-c5c9c331914b")
@@ -61,18 +61,18 @@ class _DeviceScreenState extends State<DeviceScreen> {
       appBar: AppBar(
         title: Text(widget.device.name),
         actions: <Widget>[
-          StreamBuilder<BluetoothDeviceState>(
+          StreamBuilder<BluetoothConnectionState>(
             stream: widget.device.state,
-            initialData: BluetoothDeviceState.connecting,
+            initialData: BluetoothConnectionState.connecting,
             builder: (c, snapshot) {
               VoidCallback? onPressed;
               String text;
               switch (snapshot.data) {
-                case BluetoothDeviceState.connected:
+                case BluetoothConnectionState.connected:
                   onPressed = () => widget.device.disconnect();
                   text = 'DISCONNECT';
                   break;
-                case BluetoothDeviceState.disconnected:
+                case BluetoothConnectionState.disconnected:
                   onPressed = () => widget.device.connect();
                   text = 'CONNECT';
                   break;
@@ -97,17 +97,17 @@ class _DeviceScreenState extends State<DeviceScreen> {
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            StreamBuilder<BluetoothDeviceState>(
+            StreamBuilder<BluetoothConnectionState>(
               stream: widget.device.state,
-              initialData: BluetoothDeviceState.connecting,
+              initialData: BluetoothConnectionState.connecting,
               builder: (c, snapshot) => ListTile(
                 leading: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    snapshot.data == BluetoothDeviceState.connected
+                    snapshot.data == BluetoothConnectionState.connected
                         ? const Icon(Icons.bluetooth_connected)
                         : const Icon(Icons.bluetooth_disabled),
-                    snapshot.data == BluetoothDeviceState.connected
+                    snapshot.data == BluetoothConnectionState.connected
                         ? StreamBuilder<int>(
                             stream: rssiStream(),
                             builder: (context, snapshot) {
@@ -164,7 +164,7 @@ class _DeviceScreenState extends State<DeviceScreen> {
               initialData: const [],
               builder: (c, snapshot) {
                 return Column(
-                  children: _buildServiceTiles(snapshot.data!,widget.device),
+                  children: _buildServiceTiles(snapshot.data!, widget.device),
                 );
               },
             ),
@@ -177,7 +177,7 @@ class _DeviceScreenState extends State<DeviceScreen> {
   Stream<int> rssiStream() async* {
     var isConnected = true;
     final subscription = widget.device.state.listen((state) {
-      isConnected = state == BluetoothDeviceState.connected;
+      isConnected = state == BluetoothConnectionState.connected;
     });
     while (isConnected) {
       yield await widget.device.readRssi();

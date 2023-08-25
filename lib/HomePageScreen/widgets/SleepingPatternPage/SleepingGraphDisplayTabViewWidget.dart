@@ -46,104 +46,106 @@ class _SleepingGraphDisplayTabViewWidgetState
           ),
           Container(
             margin:
-                const EdgeInsets.only(left: 10, bottom: 25, right: 20, top: 10),
-            height: size.height * 0.32,
+                const EdgeInsets.only(left: 10, bottom: 0, right: 20, top: 10),
+            height: size.height * 0.62,
             width: double.maxFinite,
             decoration: const BoxDecoration(),
             child: TabBarView(
               controller: tab2Controller,
               children: [
-                Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        const Text(
-                          "Time for bed:",
-                          style: TextStyle(fontSize: 20),
-                        ),
-                        Text(
-                          time == null
-                              ? "--:--:--"
-                              : "${time?.hour.toString()} : ${time?.minute.toString()}",
-                          style: const TextStyle(fontSize: 20),
-                        )
-                      ],
-                    ),
-                    ElevatedButton(
-                      onPressed: () {
-                        showTimePicker(
-                                context: context, initialTime: TimeOfDay.now())
-                            .then((value) {
-                          setState(() {
-                            time = value;
-                          });
-                        });
-                      },
-                      child: const Text("Select time for bed"),
-                    ),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.width * 0.07,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        const SizedBox(
-                          height: 30,
-                        ),
-                        const Text(
-                          "Time for waking up:",
-                          style: TextStyle(fontSize: 20),
-                        ),
-                        Text(
-                          wakeUpTime == null
-                              ? "--:--:--"
-                              : "${wakeUpTime?.hour.toString()} : ${wakeUpTime?.minute.toString()}",
-                          style: const TextStyle(fontSize: 20),
-                        )
-                      ],
-                    ),
-                    ElevatedButton(
-                      onPressed: () {
-                        showTimePicker(
-                          context: context,
-                          initialTime: TimeOfDay.now(),
-                        ).then((value) {
-                          setState(() {
-                            wakeUpTime = value;
-                          });
-                        });
-                      },
-                      child: const Text("Select time for waking up"),
-                    ),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    OutlinedButton(
-                      onPressed: () {
-                        final startTime =
-                            TimeOfDay(hour: time!.hour, minute: time!.minute);
-                        final endTime = TimeOfDay(
-                            hour: wakeUpTime!.hour, minute: wakeUpTime!.minute);
-                        setState(() {
-                          hours = computeHoursSpent(startTime, endTime);
-                        });
-                        Provider.of<HoursController>(context, listen: false)
-                            .getHours(hours);
-
-                        Hive.box<HoursDb>("hours").add(
-                          HoursDb(
-                            hours: hours,
-                            date: DateTime.now().toString(),
+                SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          const Text(
+                            "Time for bed:",
+                            style: TextStyle(fontSize: 20),
                           ),
-                        );
-                      },
-                      child: const Text(
-                        "Calculate Time",
-                        style: TextStyle(fontSize: 17),
+                          Text(
+                            time == null
+                                ? "--:--:--"
+                                : "${time?.hour.toString()} : ${time?.minute.toString()}",
+                            style: const TextStyle(fontSize: 20),
+                          )
+                        ],
                       ),
-                    )
-                  ],
+                      ElevatedButton(
+                        onPressed: () {
+                          showTimePicker(
+                                  context: context, initialTime: TimeOfDay.now())
+                              .then((value) {
+                            setState(() {
+                              time = value;
+                            });
+                          });
+                        },
+                        child: const Text("Select time for bed"),
+                      ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.width * 0.07,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          const SizedBox(
+                            height: 30,
+                          ),
+                          const Text(
+                            "Time for waking up:",
+                            style: TextStyle(fontSize: 20),
+                          ),
+                          Text(
+                            wakeUpTime == null
+                                ? "--:--:--"
+                                : "${wakeUpTime?.hour.toString()} : ${wakeUpTime?.minute.toString()}",
+                            style: const TextStyle(fontSize: 20),
+                          )
+                        ],
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          showTimePicker(
+                            context: context,
+                            initialTime: TimeOfDay.now(),
+                          ).then((value) {
+                            setState(() {
+                              wakeUpTime = value;
+                            });
+                          });
+                        },
+                        child: const Text("Select time for waking up"),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      OutlinedButton(
+                        onPressed: () {
+                          final startTime =
+                              TimeOfDay(hour: time!.hour, minute: time!.minute);
+                          final endTime = TimeOfDay(
+                              hour: wakeUpTime!.hour, minute: wakeUpTime!.minute);
+                          setState(() {
+                            hours = computeHoursSpent(startTime, endTime);
+                          });
+                          Provider.of<HoursController>(context, listen: false)
+                              .getHours(hours);
+                
+                          Hive.box<HoursDb>("hours").add(
+                            HoursDb(
+                              hours: hours,
+                              date: DateTime.now().toString(),
+                            ),
+                          );
+                        },
+                        child: const Text(
+                          "Calculate Time",
+                          style: TextStyle(fontSize: 17),
+                        ),
+                      )
+                    ],
+                  ),
                 )
               ],
             ),

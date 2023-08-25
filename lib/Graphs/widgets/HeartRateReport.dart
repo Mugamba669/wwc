@@ -5,8 +5,10 @@ import 'package:wwc/helpers/helpers.dart';
 
 class HeartRateReportChart extends StatefulWidget {
   final List<HeartRateDb> heartRates;
+  final double? height;
 
-  const HeartRateReportChart({super.key, required this.heartRates});
+  const HeartRateReportChart(
+      {super.key, required this.heartRates, this.height = 300});
 
   @override
   State<HeartRateReportChart> createState() => _HeartRateReportChartState();
@@ -16,13 +18,14 @@ class _HeartRateReportChartState extends State<HeartRateReportChart> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 300,
+      height: widget.height,
+      width: MediaQuery.of(context).size.width,
       child: LineChart(
         LineChartData(
           minX: 0,
           maxX: widget.heartRates.length.toDouble() - 1,
           minY: 0,
-          maxY: 200,
+          maxY: 60,
           titlesData: FlTitlesData(
             show: true,
             bottomTitles: AxisTitles(
@@ -34,7 +37,8 @@ class _HeartRateReportChartState extends State<HeartRateReportChart> {
                     child: Transform.rotate(
                       angle: -45,
                       child: Text(
-                        formatDateTime(DateTime.parse(widget.heartRates[value.toInt()].date.toString())),
+                        formatDateTime(DateTime.parse(
+                            widget.heartRates[value.toInt()].date.toString())),
                       ),
                     ),
                   );
@@ -57,13 +61,17 @@ class _HeartRateReportChartState extends State<HeartRateReportChart> {
               spots: widget.heartRates
                   .asMap()
                   .entries
-                  .map((entry) => FlSpot(
-                      entry.key.toDouble(), entry.value.heartRate!.toDouble()))
+                  .map(
+                    (entry) => FlSpot(
+                      entry.key.toDouble(),
+                      entry.value.heartRate!.toDouble(),
+                    ),
+                  )
                   .toList(),
               isCurved: true,
               color: Colors.blue,
-              barWidth: 4,
-              dotData: const FlDotData(show: false),
+              barWidth: 2,
+              dotData: const FlDotData(show: true),
               belowBarData: BarAreaData(show: false),
             ),
           ],

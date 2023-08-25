@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
 class TemperatureController with ChangeNotifier {
-  FlutterBluePlus flutterBlue = FlutterBluePlus.instance;
+  FlutterBluePlus flutterBlue = FlutterBluePlus();
 
   BluetoothCharacteristic? targetCharacteristic;
   bool connected = false;

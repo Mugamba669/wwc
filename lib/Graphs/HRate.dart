@@ -14,7 +14,7 @@ import '../controllers/StepController.dart';
 
 class HRate extends StatefulWidget {
   final BluetoothDevice device;
-  const HRate({super.key, required this.device});
+  const                         HRate({super.key, required this.device});
 
   @override
   State<HRate> createState() => _HRateState();
@@ -22,6 +22,7 @@ class HRate extends StatefulWidget {
 
 class _HRateState extends State<HRate> {
   HeartRateController? controller;
+  Timer? _timer;
   List<double> data = [];
   @override
   void initState() {
@@ -32,6 +33,7 @@ class _HRateState extends State<HRate> {
   @override
   void dispose() {
     controller?.dispose();
+    _timer?.cancel();
     super.dispose();
   }
 
@@ -55,7 +57,7 @@ class _HRateState extends State<HRate> {
             Consumer<HeartRateController>(
               builder: (context, value, _) {
                 data.add(value.heartRate);
-                Timer.periodic(const Duration(seconds: 1), (timer) {
+               _timer = Timer.periodic(const Duration(seconds: 8), (timer) {
                    Hive.box<HeartRateDb>("heart").add(
                      HeartRateDb(
                        uid: widget.device.id.toString(),
@@ -76,7 +78,7 @@ class _HRateState extends State<HRate> {
               child:
                   Consumer<HeartRateController>(builder: (context, value, x) {
                 return SizedBox(
-                  height: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.width * 0.6,
                   width: MediaQuery.of(context).size.width,
                   child: LineChart(
                     LineChartData(

@@ -37,7 +37,7 @@ void main() async {
   await Hive.openBox<HeartRateDb>("heart");
   await Hive.openBox<TemperatureDb>("temperature");
   await Hive.openBox<StepsDb>("step");
-  await Hive.openBox<StepsDb>("hours");
+  await Hive.openBox<HoursDb>("hours");
 
   SharedPreferences prefs = await SharedPreferences.getInstance();
   if (Platform.isAndroid) {

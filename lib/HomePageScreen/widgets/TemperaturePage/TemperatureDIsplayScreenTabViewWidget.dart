@@ -7,7 +7,7 @@ import 'TemperatureMeasureWidgetPage.dart';
 
 class TemperatureDisplayScreenTabViewWidget extends StatefulWidget {
   final BluetoothDevice device;
-  const TemperatureDisplayScreenTabViewWidget({Key? key, required this.device});
+  const TemperatureDisplayScreenTabViewWidget({super.key, required this.device});
 
   @override
   State<TemperatureDisplayScreenTabViewWidget> createState() =>
@@ -46,7 +46,7 @@ class _TemperatureDisplayScreenTabViewWidgetState
                 Container(
                   margin:
                       const EdgeInsets.only(left: 20, bottom: 20, right: 20, top: 10),
-                  height: size.height*0.65,
+                  height: size.height*0.75,
                   width: double.maxFinite,
                   decoration: const BoxDecoration(
                       // color: Color.fromARGB(171, 214, 211, 211),
