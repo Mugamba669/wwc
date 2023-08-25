@@ -19,13 +19,10 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final formKey = GlobalKey<FormState>();
+  @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: AppBar(
-          leading: const Text(''),
-          backgroundColor: Colors.blue,
-          title: const Text("WWC")),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -86,6 +83,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: TextFormField(
                     controller: passwordController,
                     obscureText: true,
+                    maxLength: 6,
                     decoration: const InputDecoration(
                       hintText: "Password",
                       border: OutlineInputBorder(
